@@ -1,13 +1,20 @@
-const verifyUser = (req, res, next) => {
-  try {
-    if (req.user.payload === req.params.id) {
-      next();
-    } else {
-      throw new badRequest("User not found");
+import { badRequest } from "../error/index.js";
+
+const verifyUser = (...role) => {
+  return (req, res, next) => {
+    try {
+      if (
+        req.user.payload.id === req.params.id &&
+        role.includes(req.user.payload.role)
+      ) {
+        next();
+      } else {
+        throw new badRequest("authorization failed");
+      }
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    next(error);
-  }
+  };
 };
 
-export default verifyUser;
+export { verifyUser };

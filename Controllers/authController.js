@@ -27,7 +27,7 @@ const authlogin = async (req, res, next) => {
     if (!isMatch) {
       throw new badRequest("Password is not correct");
     }
-    const token = jwtGenrator({ payload: User._id });
+    const token = jwtGenrator({ payload: { id: User._id, role: User.role } });
     res.cookie(
       "token",
       token,

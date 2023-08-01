@@ -4,6 +4,7 @@ import {} from "dotenv/config.js";
 import errorHandler from "./Middleware/error-handler.js";
 import cors from "cors";
 import authrouter from "./router/authrouter.js";
+import categoryrouter from "./router/categoryrouter.js";
 import cookieParser from "cookie-parser";
 import authVerify from "./Middleware/auth-verify.js";
 import fileUpload from "express-fileupload";
@@ -15,6 +16,7 @@ app.use(Express.json());
 app.use(cookieParser());
 app.use(fileUpload({ useTempFiles: true }));
 app.use("/api/v1/auth", authrouter);
+app.use("/api/v1/category", categoryrouter);
 app.use(errorHandler);
 
 cloudinary.config({
