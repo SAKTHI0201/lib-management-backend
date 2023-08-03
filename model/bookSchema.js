@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { number } from "zod";
 
 const BookSchema = new mongoose.Schema(
   {
@@ -9,14 +10,15 @@ const BookSchema = new mongoose.Schema(
     },
     title: {
       type: String,
+      unique: true,
       required: true,
     },
-    descriptuon: {
+    description: {
       type: String,
       required: true,
     },
     publishDate: {
-      type: Date,
+      type: Number,
       required: true,
     },
     pageCount: {
