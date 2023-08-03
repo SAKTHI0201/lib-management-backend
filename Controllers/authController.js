@@ -5,9 +5,8 @@ import { comparePassword, jwtGenrator } from "../utils/index.js";
 
 const authSignup = async (req, res, next) => {
   try {
-    if (!req.body.email || !req.body.password) {
+    if (!req.body.email || !req.body.password)
       throw new badRequest("Email and Password is required");
-    }
     await authSchema.create(req.body);
     res.status(StatusCodes.CREATED).json({ message: "User Created" });
   } catch (error) {
@@ -16,17 +15,12 @@ const authSignup = async (req, res, next) => {
 };
 const authlogin = async (req, res, next) => {
   try {
-    if (!req.body.email && !req.body.password) {
+    if (!req.body.email && !req.body.password)
       throw new badRequest("Email and Password is required");
-    }
     const User = await authSchema.findOne({ email: req.body.email });
-    if (!User) {
-      throw new badRequest("User not found");
-    }
+    if (!User) throw new badRequest("User not found");
     const isMatch = await comparePassword(req.body.password, User.password);
-    if (!isMatch) {
-      throw new badRequest("Password is not correct");
-    }
+    if (!isMatch) throw new badRequest("Password is not correct");
     const token = jwtGenrator({ payload: { id: User._id, role: User.role } });
     res.cookie(
       "token",
