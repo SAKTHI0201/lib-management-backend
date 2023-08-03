@@ -14,10 +14,12 @@ const bookrouter = Express.Router();
 bookrouter.route("/").get(getallbooks);
 
 bookrouter
-  .route("/:id")
+  .route("/:id/:category")
+  .post(authVerify, verifyUser("admin"), addbook);
+bookrouter
+  .route("/:id/:bookid")
   .get(authVerify, verifyUser("admin"), getbooks)
-  .post(authVerify, verifyUser("admin"), addbook)
-  .put(authVerify, verifyUser("admin"), updatebook)
+  .patch(authVerify, verifyUser("admin"), updatebook)
   .delete(authVerify, verifyUser("admin"), deletebook);
 
 export default bookrouter;

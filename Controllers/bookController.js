@@ -12,9 +12,8 @@ const getallbooks = async (req, res, next) => {
   }
 };
 const getbooks = async (req, res, next) => {
-  //   console.log(req.params.id);
   try {
-    const Book = await book.find({ category: req.params.id });
+    const Book = await book.find({ category: req.params.bookid });
     if (!Book) throw badRequest("No books found");
     res.status(StatusCodes.OK).json({ Book });
   } catch (error) {
@@ -24,7 +23,7 @@ const getbooks = async (req, res, next) => {
 const addbook = async (req, res, next) => {
   try {
     // id = category id
-    req.body.category = req.params.id;
+    req.body.category = req.params.category;
     const Book = await book.create(req.body);
     if (!Book) throw badRequest("No books found");
     res.status(StatusCodes.OK).json({ message: "Get all books" });
@@ -35,7 +34,7 @@ const addbook = async (req, res, next) => {
 const updatebook = async (req, res, next) => {
   try {
     const Book = await book.findByIdAndUpdate(
-      { _id: req.params.id },
+      { _id: req.params.bookid },
       req.body,
       { new: true }
     );
@@ -47,7 +46,7 @@ const updatebook = async (req, res, next) => {
 };
 const deletebook = async (req, res, next) => {
   try {
-    const Book = await book.findByIdAndDelete({ _id: req.params.id });
+    const Book = await book.findByIdAndDelete({ _id: req.params.bookid });
     if (!Book) throw badRequest("No books found");
     res.status(StatusCodes.OK).json({ message: "Get all books" });
   } catch (error) {

@@ -22,7 +22,7 @@ app.use(fileUpload({ useTempFiles: true }));
 app.use("/api/v1/auth", authrouter);
 app.use("/api/v1/category", categoryrouter);
 app.use("/api/v1/book", bookrouter);
-app.use("/api/v1/book/transaction", transactionrouter);
+app.use("/api/v1/transaction", transactionrouter);
 app.use(errorHandler);
 
 cloudinary.config({
